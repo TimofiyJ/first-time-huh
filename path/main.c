@@ -14,7 +14,10 @@ int main() {
     //filling matrix
     int** Matrix = (int**)malloc(size*sizeof(int));
     fillMatrix(Matrix, size);
+
     printMatrix(Matrix,size);
+
+    
     freeMatrix(Matrix,size);
     return 0;
 }
