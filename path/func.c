@@ -7,7 +7,8 @@ void fillMatrix(int **matrix, int size){
     int sizecurr=size;
     while(size!=0){
         int* M = (int*)malloc(sizecurr*sizeof(int));
-        for(int i=0; i<size;i++){
+        for(int i=0; i<sizecurr;i++){
+            printf("Enter %d element \n",i+1);
             scanf("%d",&M[i]);
         }
         matrix[position]=M;
@@ -31,4 +32,3 @@ void freeMatrix(int** matrix, int size){
     }
     free(matrix);
 }
-
