@@ -34,6 +34,18 @@ void freeMatrix(int** matrix, int size){
     }
     free(matrix);
 }
+void fillArrays(int** marked, int** distance ,int size,int startrow, int startcolumn){
+    for(int i=0;i<size*size;i++){
+        if (startrow*size+startcolumn==i){
+            distance[i]=1;
+            marked[i]=1;
+        }
+        else{
+            distance[i]=0;
+            marked[i]=0;
+        }
+    }
+}
 
 void searchMatrix(int** matrix, int size){
     int startrow,startcolumn,endrow,endcolumn;
@@ -51,23 +63,9 @@ void searchMatrix(int** matrix, int size){
     }
     int* marked=(int)malloc(size*size*sizeof(int));
     int* distance=(int)malloc(size*size*sizeof(int));
-    for(int i=0;i<size*size;i++){
-        if (startrow*size+startcolumn==i){
-            distance[i]=1;
-            marked[i]=1;
-        }
-        else{
-            distance[i]=0;
-            marked[i]=0;
-        }
-    }
+    fillArrays(marked, distance, size, startrow, startcolumn);
     while(1){
         int currpos=startrow*size+startcolumn;
-        printf("%d currpos\n",currpos);
-        printf("%d startrow\n",startrow);
-        printf("%d startcolumn\n",startcolumn);
-        printf("%d numb\n",matrix[startrow][startcolumn]);
-        printf("%d numb2\n",distance[currpos-size]);
 
         if (startcolumn+1<size){
             if (distance[currpos+1]>distance[currpos] + matrix[startrow][startcolumn + 1] || distance[currpos+1]==0) {
