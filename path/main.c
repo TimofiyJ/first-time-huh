@@ -3,6 +3,8 @@
 void fillMatrix(int**, int);
 void printMatrix(int**, int);
 void freeMatrix(int**, int);
+void searchMatrix(int**, int);
+void fillArrays(int** marked, int** distance ,int size,int startrow, int startcolumn);
 int main() {
     int size;
 
@@ -16,8 +18,8 @@ int main() {
     fillMatrix(Matrix, size);
 
     printMatrix(Matrix,size);
+    searchMatrix(Matrix,size);
 
-    
     freeMatrix(Matrix,size);
     return 0;
 }
