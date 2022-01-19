@@ -34,9 +34,32 @@ void freeMatrix(int** matrix, int size){
     }
     free(matrix);
 }
+void fillArrays(int** marked, int** distance ,int size,int startrow, int startcolumn){
+    for(int i=0;i<size*size;i++){
+        if (startrow*size+startcolumn==i){
+            distance[i]=1;
+            marked[i]=1;
+        }
+        else{
+            distance[i]=0;
+            marked[i]=0;
+        }
+    }
+}
+
+void searchWalls(int** matrix, int size, int* distance, int* marked){
+    for(int i=0;i<size;i++){
+        for(int j=0;j<size;j++){
+            if (matrix[i][j]==-2){
+                marked[i*size+j]=1;
+                distance[i*size+j]=-1;
+            }
+        }
+    }
+}
 
 void searchMatrix(int** matrix, int size){
-    int startrow,startcolumn,endrow,endcolumn;
+    int startrow,startcolumn,endrow,endcolumn=0;
     for(int i=0;i<size;i++){
         for(int j=0; j<size;j++){
             if (matrix[i][j]==0){
@@ -51,45 +74,37 @@ void searchMatrix(int** matrix, int size){
     }
     int* marked=(int)malloc(size*size*sizeof(int));
     int* distance=(int)malloc(size*size*sizeof(int));
-    for(int i=0;i<size*size;i++){
-        if (startrow*size+startcolumn==i){
-            distance[i]=1;
-            marked[i]=1;
-        }
-        else{
-            distance[i]=0;
-            marked[i]=0;
-        }
-    }
+    fillArrays(marked, distance, size, startrow, startcolumn);
+    searchWalls(matrix, size,distance,marked);
     while(1){
         int currpos=startrow*size+startcolumn;
-        printf("%d currpos\n",currpos);
-        printf("%d startrow\n",startrow);
-        printf("%d startcolumn\n",startcolumn);
-        printf("%d numb\n",matrix[startrow][startcolumn]);
-        printf("%d numb2\n",distance[currpos-size]);
+        int breaker=0;
 
         if (startcolumn+1<size){
-            if (distance[currpos+1]>distance[currpos] + matrix[startrow][startcolumn + 1] || distance[currpos+1]==0) {
+            if ((distance[currpos+1]>distance[currpos] + matrix[startrow][startcolumn + 1] || distance[currpos+1]==0) && distance[currpos+1]>=0) {
                 distance[currpos + 1] = distance[currpos] + matrix[startrow][startcolumn + 1];
+                breaker=1;
                 printf("%d !\n", distance[currpos + 1]);
             }
         }
         if (startcolumn-1>=0){
-            if (distance[currpos-1]>distance[currpos]+matrix[startrow][startcolumn-1] || distance[currpos-1]==0){
+            if ((distance[currpos-1]>distance[currpos]+matrix[startrow][startcolumn-1] || distance[currpos-1]==0) && distance[currpos-1]>=0){
                 distance[currpos-1]=distance[currpos]+matrix[startrow][startcolumn-1];
+                breaker=1;
                 printf("%d !!\n", distance[currpos-1]);
             }
         }
         if (startrow-1>=0){
-            if(distance[currpos-size] > distance[currpos] + matrix[startrow - 1][startcolumn] || distance[currpos-size]==0) {
+            if ((distance[currpos-size] > distance[currpos] + matrix[startrow - 1][startcolumn] || distance[currpos-size]==0) && distance[currpos-size]>=0) {
                 distance[currpos - size] = distance[currpos] + matrix[startrow - 1][startcolumn];
+                breaker=1;
                 printf("%d !!!\n", distance[currpos - size]);
             }
         }
         if (startrow+1<size){
-            if(distance[currpos+size] > distance[currpos] + matrix[startrow + 1][startcolumn] || distance[currpos+size]==0) {
+            if ((distance[currpos+size] > distance[currpos] + matrix[startrow + 1][startcolumn] || distance[currpos+size]==0) && distance[currpos+size]) {
                 distance[currpos + size] = distance[currpos] + matrix[startrow + 1][startcolumn];
+                breaker=1;
                 printf("%d !!!!\n", distance[currpos + size]);
             }
         }
@@ -119,7 +134,7 @@ void searchMatrix(int** matrix, int size){
         for(int i=0;i<size*size;i++){
             sum2=sum2+marked[i];
         }
-        if(sum2==sum){
+        if(sum2==sum || breaker==0){
             break;
         }
 
