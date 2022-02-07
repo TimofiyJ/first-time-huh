@@ -11,7 +11,7 @@ using std::cout;
 using std::cin;
 using std::endl;
 
-void searchMatrix(int**, int);
+void searchMatrix(CPoint**, int);
 
 
 int main() {
@@ -40,19 +40,19 @@ int main() {
 }
 
 
-void searchMatrix(int** matrix, int size) {
+void searchMatrix(CPoint** matrix, int size) {
 
     int startrow, startcolumn, endrow, endcolumn = 0;
 
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
 
-            if (matrix[i][j] == 0) {
+            if (matrix[i][j].number == 0) {
                 startcolumn = j;
                 startrow = i;
             }
 
-            if (matrix[i][j] == -1) {
+            if (matrix[i][j].number == -1) {
                 endcolumn = j;
                 endrow = i;
             }
@@ -72,7 +72,7 @@ void searchMatrix(int** matrix, int size) {
         int breaker = 0;
 
         CPoint current;
-        current.getNumber(matrix[startrow][startcolumn]);
+        current.getNumber(matrix[startrow][startcolumn].number);
         current.scanType(matrix[startrow][startcolumn]);
 
         current.addToMarked(marked, currpos);
