@@ -1,25 +1,19 @@
 #include <iostream>
 #include <string>
 #include <stdlib.h>
+#include "matrix.h"
 
 using std::string;
 using std::cout;
 using std::cin;
 using std::endl;
+int size = 0;
 
-class point;
+void CMatrix::getSize(int sizeM) {
+    size = sizeM;
+}
 
-class Cmatrix {
-public:
-
-    int size = 0;
-
-
-    Cmatrix(int sizematrix) {
-        size = sizematrix;
-    }
-
-    void fillMatrix(int** matrix) {
+    void CMatrix::fillMatrix(int** matrix) {
 
         int position = 0;
         int sizecurr = size;
@@ -43,7 +37,7 @@ public:
         }
     }
 
-    void printMatrix(int** matrix) {
+    void CMatrix::printMatrix(int** matrix) {
 
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
@@ -54,7 +48,7 @@ public:
         }
     }
 
-    void freeMatrix(int** matrix) {
+    void CMatrix::freeMatrix(int** matrix) {
 
         for (int i = 0; i < size; i++) {
             free(matrix[i]);
@@ -63,7 +57,7 @@ public:
         free(matrix);
     }
 
-    void fillArrays(int* marked, int* distance, int size, int startrow, int startcolumn) {
+    void CMatrix::fillArrays(int* marked, int* distance, int startrow, int startcolumn) {
 
         for (int i = 0; i < size * size; i++) {
 
@@ -81,7 +75,7 @@ public:
         }
     }
 
-    void searchWalls(int** matrix, int size, int* distance, int* marked) {
+    void CMatrix::searchWalls(int** matrix, int* distance, int* marked) {
 
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
@@ -95,4 +89,3 @@ public:
         }
     }
 
-};

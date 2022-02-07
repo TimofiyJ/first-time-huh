@@ -1,6 +1,10 @@
 #include <iostream>
 #include <string>
 #include <stdlib.h>
+#include "functions.h"
+#include "matrix.h"
+
+
 
 using std::string;
 using std::cout;
@@ -9,26 +13,29 @@ using std::endl;
 
 void searchMatrix(int**, int);
 
-class point;
-class Cmatrix;
 
 int main() {
     int size=0;
 
+
+
     cout << "Please, enter size of the matrix \n" << endl;
     cin >> size;
  
+    CMatrix MyMatrix;
+
+    MyMatrix.getSize(size);
 
  
     int** Matrix = new int*[size];
-    fillMatrix(Matrix, size);
+    MyMatrix.fillMatrix(Matrix);
 
-    printMatrix(Matrix, size);
+    MyMatrix.printMatrix(Matrix);
 
 
     searchMatrix(Matrix, size);
 
-    freeMatrix(Matrix, size);
+    MyMatrix.freeMatrix(Matrix);
     return 0;
 }
 
@@ -55,20 +62,22 @@ void searchMatrix(int** matrix, int size) {
     int* marked = new int[size * size];
     int* distance = new int[size * size];
 
-    Cmatrix mymatrix(size);
-    Cmatrix.fillArrays(marked, distance, size, startrow, startcolumn);
-    searchWalls(matrix, size, distance, marked);
+    CMatrix MyMatrix;
+    MyMatrix.getSize(size);
+    MyMatrix.fillArrays(marked, distance,startrow, startcolumn);
+    MyMatrix.searchWalls(matrix, distance, marked);
 
     while (1) {
         int currpos = startrow * size + startcolumn;
         int breaker = 0;
 
-        point current(matrix[startrow][startcolumn]);
+        CPoint current;
+        current.getNumber(matrix[startrow][startcolumn]);
         current.scanType(matrix[startrow][startcolumn]);
 
         current.addToMarked(marked, currpos);
         breaker = current.searchNeighbors(matrix, distance, startrow, startcolumn, size);
-        cout << "\n Type is: " << current.getType() << " Number point: " << startrow + 1 << " " << startcolumn + 1 << endl;
+        cout  << " Number point: " << startrow + 1 << " " << startcolumn + 1 << endl;
 
         cout << "\n distance:" << endl;
 
@@ -109,8 +118,6 @@ void searchMatrix(int** matrix, int size) {
     }
     cout << "\n Your way is:" << distance[endrow * size + endcolumn] << "\n" << endl;
     cout << "\n number:" << matrix[endrow][endcolumn] << endl;
-    point end(matrix[endrow][endcolumn]);
+    CPoint end;
     end.scanType(matrix[endrow][endcolumn]);
-    string type = end.getType();
-    cout << "\n Your type is:" << type << "\n" << endl;
 }

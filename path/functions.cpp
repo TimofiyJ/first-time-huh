@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <stdlib.h>
+#include "functions.h"
 
 using std::string;
 using std::cout;
@@ -15,17 +16,14 @@ enum Types
     end = -1
 };
 
-
-class point {
-public:
     int value=0;
     int number=0;
     string type;
 
-    point(int mark) {
+    void CPoint::getNumber(int mark) {
         number = mark;
     }
-    void scanType(int number) {
+    void CPoint::scanType(int number) {
         switch (number) {
         case Types::beginning:
             type = "beginning";
@@ -46,12 +44,12 @@ public:
         }
     }
 
-    void addToMarked(int* marked, int currpos) {
+    void CPoint::addToMarked(int* marked, int currpos) {
         if (type == "wall" || type == "point") {
             marked[currpos] = 1;
         }
     }
-    int searchNeighbors(int** matrix, int* distance, int row, int column, int size) {
+    int CPoint::searchNeighbors(int** matrix, int* distance, int row, int column, int size) {
         int currpos = row * size + column;
         int breaker = 0;
         if (column + 1 < size) {
@@ -89,11 +87,14 @@ public:
         }
         return breaker;
     }
-    int getValue() {
+    int CPoint::getValue() {
         return value;
     }
-    string getType() {
+    string CPoint::getType() {
         return type;
     }
    
-};
+
+
+
+
