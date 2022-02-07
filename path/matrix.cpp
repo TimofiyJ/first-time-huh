@@ -8,13 +8,15 @@ using std::string;
 using std::cout;
 using std::cin;
 using std::endl;
-int size = 0;
+
+int size;
 
 void CMatrix::getSize(int sizeM) {
     size = sizeM;
 }
 
-    void CMatrix::fillMatrix(int** matrix) {
+
+    void CMatrix::fillMatrix(CPoint** matrix) {
 
         int position = 0;
         int sizecurr = size;
@@ -22,13 +24,12 @@ void CMatrix::getSize(int sizeM) {
 
 
         while (size != 0) {
-            CPoint Array = new int[sizecurr];
-
-
+            CPoint* Array = new CPoint[sizecurr];
             for (int i = 0; i < sizecurr; i++) {
+                CPoint point;
+                Array[i] =  point;
+                Array[i].getNumber();
 
-                cout << "Enter " << i + 1 << " element " << row << " row \n" << endl;
-                cin >> Array[i];
             }
 
             row = row + 1;
@@ -38,24 +39,24 @@ void CMatrix::getSize(int sizeM) {
         }
     }
 
-    void CMatrix::printMatrix(int** matrix) {
+    void CMatrix::printMatrix(CPoint** matrix) {
 
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                cout << matrix[i][j] << " ";
+                cout << matrix[i][j].number << " ";
             }
 
             cout << "\n" << endl;
         }
     }
 
-    void CMatrix::freeMatrix(int** matrix) {
+    void CMatrix::freeMatrix(CPoint** matrix) {
 
         for (int i = 0; i < size; i++) {
-            free(matrix[i]);
+            delete [] matrix[i];
         }
 
-        free(matrix);
+        delete [] matrix;
     }
 
     void CMatrix::fillArrays(int* marked, int* distance, int startrow, int startcolumn) {
@@ -76,12 +77,12 @@ void CMatrix::getSize(int sizeM) {
         }
     }
 
-    void CMatrix::searchWalls(int** matrix, int* distance, int* marked) {
+    void CMatrix::searchWalls(CPoint** matrix, int* distance, int* marked) {
 
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
 
-                if (matrix[i][j] == -2) {
+                if (matrix[i][j].number == -2) {
                     marked[i * size + j] = 1;
                     distance[i * size + j] = -1;
 
@@ -89,5 +90,4 @@ void CMatrix::getSize(int sizeM) {
             }
         }
     }
-
 

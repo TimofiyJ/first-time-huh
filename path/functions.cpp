@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <string>
 #include <stdlib.h>
@@ -20,8 +21,9 @@ enum Types
     int number=0;
     string type;
 
-    void CPoint::getNumber(int mark) {
-        number = mark;
+    void CPoint::getNumber() {
+        cout << "Please, enter number";
+        cin >> number;
     }
     void CPoint::scanType(int number) {
         switch (number) {

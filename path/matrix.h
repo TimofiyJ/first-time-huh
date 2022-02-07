@@ -1,16 +1,25 @@
+#pragma once
+#include "functions.h"
+
+
 
 class CMatrix {
 public:
+    int size;
+
     void getSize(int);
 
-    void fillMatrix(int** );
+    void fillMatrix(CPoint** matrix);
 
-    void printMatrix(int** );
+    void printMatrix(CPoint** );
 
-    void freeMatrix(int** );
+    void freeMatrix(CPoint** );
 
     void fillArrays(int* , int* , int , int );
 
-    void searchWalls(int** , int* , int* );
+    void searchWalls(CPoint** , int* , int* );
+
+  
+
 
 };

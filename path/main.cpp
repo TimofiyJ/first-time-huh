@@ -27,7 +27,7 @@ int main() {
     MyMatrix.getSize(size);
 
  
-    int** Matrix = new int*[size];
+    CPoint** Matrix = new CPoint*[size];
     MyMatrix.fillMatrix(Matrix);
 
     MyMatrix.printMatrix(Matrix);
