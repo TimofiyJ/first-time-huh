@@ -2,6 +2,7 @@
 #include <string>
 #include <stdlib.h>
 #include "matrix.h"
+#include "functions.h"
 
 using std::string;
 using std::cout;
@@ -21,7 +22,7 @@ void CMatrix::getSize(int sizeM) {
 
 
         while (size != 0) {
-            int* Array = new int[sizecurr];
+            CPoint Array = new int[sizecurr];
 
 
             for (int i = 0; i < sizecurr; i++) {
@@ -88,4 +89,5 @@ void CMatrix::getSize(int sizeM) {
             }
         }
     }
+
 
